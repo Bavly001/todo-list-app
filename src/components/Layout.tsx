@@ -9,7 +9,6 @@ import {
   updateProjects,
 } from "../store/projects/project-actions";
 import { useWindowWidth } from "@react-hook/window-size";
-import { themeActions } from "../store/theme/theme-slice";
 import {
   fetchCompletedTasks,
   updateCompletedTasks,
@@ -31,7 +30,6 @@ const Layout = () => {
 
   const theme = useSelector((state: RootState) => state.theme);
   const themeMode = theme?.mode;
-  const themeColor = theme?.color.mainColor;
 
   const completedTasks = useSelector((state: RootState) => state.completedTasks);
   const projects = useSelector((state: RootState) => state.projects);
@@ -61,40 +59,7 @@ const Layout = () => {
         modal.className = "";
       }
     }
-
-    if (themeColor === "" && !theme.themeIsLoading) {
-      dispatch(themeActions.changeColorBlue());
-    } else {
-      switch (themeColor) {
-        case "blue":
-          dispatch(themeActions.changeColorBlue());
-          break;
-        case "cyan":
-          dispatch(themeActions.changeColorCyan());
-          break;
-        case "teal":
-          dispatch(themeActions.changeColorTeal());
-          break;
-        case "green":
-          dispatch(themeActions.changeColorGreen());
-          break;
-        case "lime":
-          dispatch(themeActions.changeColorLime());
-          break;
-        case "orange":
-          dispatch(themeActions.changeColorOrange());
-          break;
-        case "pink":
-          dispatch(themeActions.changeColorPink());
-          break;
-        case "purple":
-          dispatch(themeActions.changeColorPurple());
-          break;
-        default:
-          break;
-      }
-    }
-  }, [themeColor, dispatch, themeMode, theme.themeIsLoading]);
+  }, [themeMode]);
 
   useEffect(() => {
     if (currentLink === "") navigate("today");

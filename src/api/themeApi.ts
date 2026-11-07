@@ -2,8 +2,8 @@ import { apiClient } from './client';
 import { ThemeColors, ThemeMode } from '../types';
 
 export const themeApi = {
-  getTheme: async (_userId?: string): Promise<{ mode: ThemeMode; color: ThemeColors }> => {
-    const res = await apiClient.get<{ mode: ThemeMode; color: ThemeColors }>('/api/theme');
+  getTheme: async (_userId?: string): Promise<{ mode: ThemeMode | null; color: ThemeColors | null }> => {
+    const res = await apiClient.get<{ mode: ThemeMode | null; color: ThemeColors | null }>('/api/theme');
     return res.data;
   },
 

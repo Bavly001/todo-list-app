@@ -16,7 +16,7 @@ const ModeThemeSection = () => {
                          borderColor="border-white"
                          active={theme !== "dark"}
                          onClick={() =>
-                              dispatch(themeActions.changeThemeMode(""))
+                              dispatch(themeActions.changeThemeMode("light"))
                          }
                          // index={0}
                     />

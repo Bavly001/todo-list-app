@@ -1,207 +1,90 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ThemeColors, ThemeMode, ThemeState } from "../../types";
+import {
+  DEFAULT_THEME_COLOR,
+  DEFAULT_THEME_MODE,
+  resolveColorPalette,
+} from "./theme-constants";
 
 const initialState: ThemeState = {
-  mode: '',
-  color: {
-    bgColor: '',
-    secondaryBg: '',
-    bgHover: '',
-    textColor: '',
-    textHover: '',
-    mainColor: '',
-  },
+  mode: DEFAULT_THEME_MODE,
+  color: DEFAULT_THEME_COLOR,
   changed: false,
   themeIsLoading: true,
 };
 
 const themeSlice = createSlice({
-  name: 'theme',
+  name: "theme",
   initialState,
   reducers: {
     changeThemeMode(state, action: PayloadAction<ThemeMode>) {
-      state.mode = action.payload;
+      const newMode: ThemeMode = action.payload || "light";
+      state.mode = newMode;
+      state.color = resolveColorPalette(state.color?.mainColor, newMode);
       state.changed = true;
     },
     changeColorBlue(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-blue-400',
-          secondaryBg: 'bg-blue-900',
-          bgHover: 'hover:bg-blue-300',
-          textColor: 'text-blue-400',
-          textHover: 'hover:text-blue-300',
-          mainColor: 'blue',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-blue-600',
-          secondaryBg: 'bg-blue-100',
-          bgHover: 'hover:bg-blue-700',
-          textColor: 'text-blue-600',
-          textHover: 'hover:text-blue-700',
-          mainColor: 'blue',
-        };
-      }
+      state.color = resolveColorPalette("blue", state.mode);
       state.changed = true;
     },
     changeColorCyan(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-cyan-400',
-          secondaryBg: 'bg-cyan-900',
-          bgHover: 'hover:bg-cyan-300',
-          textColor: 'text-cyan-400',
-          textHover: 'hover:text-cyan-300',
-          mainColor: 'cyan',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-cyan-600',
-          secondaryBg: 'bg-cyan-100',
-          bgHover: 'hover:bg-cyan-700',
-          textColor: 'text-cyan-600',
-          textHover: 'hover:text-cyan-700',
-          mainColor: 'cyan',
-        };
-      }
+      state.color = resolveColorPalette("cyan", state.mode);
       state.changed = true;
     },
     changeColorTeal(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-teal-400',
-          secondaryBg: 'bg-teal-900',
-          bgHover: 'hover:bg-teal-300',
-          textColor: 'text-teal-400',
-          textHover: 'hover:text-teal-300',
-          mainColor: 'teal',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-teal-600',
-          secondaryBg: 'bg-teal-100',
-          bgHover: 'hover:bg-teal-700',
-          textColor: 'text-teal-600',
-          textHover: 'hover:text-teal-700',
-          mainColor: 'teal',
-        };
-      }
+      state.color = resolveColorPalette("teal", state.mode);
       state.changed = true;
     },
     changeColorGreen(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-green-400',
-          secondaryBg: 'bg-green-900',
-          bgHover: 'hover:bg-green-300',
-          textColor: 'text-green-400',
-          textHover: 'hover:text-green-300',
-          mainColor: 'green',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-green-600',
-          secondaryBg: 'bg-green-100',
-          bgHover: 'hover:bg-green-700',
-          textColor: 'text-green-600',
-          textHover: 'hover:text-green-700',
-          mainColor: 'green',
-        };
-      }
+      state.color = resolveColorPalette("green", state.mode);
       state.changed = true;
     },
     changeColorLime(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-lime-400',
-          secondaryBg: 'bg-lime-900',
-          bgHover: 'hover:bg-lime-300',
-          textColor: 'text-lime-400',
-          textHover: 'hover:text-lime-300',
-          mainColor: 'lime',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-lime-600',
-          secondaryBg: 'bg-lime-100',
-          bgHover: 'hover:bg-lime-700',
-          textColor: 'text-lime-600',
-          textHover: 'hover:text-lime-700',
-          mainColor: 'lime',
-        };
-      }
+      state.color = resolveColorPalette("lime", state.mode);
       state.changed = true;
     },
     changeColorOrange(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-orange-400',
-          secondaryBg: 'bg-orange-900',
-          bgHover: 'hover:bg-orange-300',
-          textColor: 'text-orange-400',
-          textHover: 'hover:text-orange-300',
-          mainColor: 'orange',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-orange-600',
-          secondaryBg: 'bg-orange-100',
-          bgHover: 'hover:bg-orange-700',
-          textColor: 'text-orange-600',
-          textHover: 'hover:text-orange-700',
-          mainColor: 'orange',
-        };
-      }
+      state.color = resolveColorPalette("orange", state.mode);
       state.changed = true;
     },
     changeColorPink(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-pink-400',
-          secondaryBg: 'bg-pink-900',
-          bgHover: 'hover:bg-pink-300',
-          textColor: 'text-pink-400',
-          textHover: 'hover:text-pink-300',
-          mainColor: 'pink',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-pink-600',
-          secondaryBg: 'bg-pink-100',
-          bgHover: 'hover:bg-pink-700',
-          textColor: 'text-pink-600',
-          textHover: 'hover:text-pink-700',
-          mainColor: 'pink',
-        };
-      }
+      state.color = resolveColorPalette("pink", state.mode);
       state.changed = true;
     },
     changeColorPurple(state) {
-      if (state.mode === 'dark') {
-        state.color = {
-          bgColor: 'bg-purple-400',
-          secondaryBg: 'bg-purple-900',
-          bgHover: 'hover:bg-purple-300',
-          textColor: 'text-purple-400',
-          textHover: 'hover:text-purple-300',
-          mainColor: 'purple',
-        };
-      } else {
-        state.color = {
-          bgColor: 'bg-purple-600',
-          secondaryBg: 'bg-purple-100',
-          bgHover: 'hover:bg-purple-700',
-          textColor: 'text-purple-600',
-          textHover: 'hover:text-purple-700',
-          mainColor: 'purple',
-        };
-      }
+      state.color = resolveColorPalette("purple", state.mode);
       state.changed = true;
     },
-    addTheme(state, action: PayloadAction<{ mode: ThemeMode; color: ThemeColors }>) {
-      state.mode = action.payload.mode;
-      state.color = action.payload.color;
+    addTheme(
+      state,
+      action: PayloadAction<{ mode?: ThemeMode | null; color?: ThemeColors | null } | null | undefined>
+    ) {
+      const payload = action.payload;
+
+      // If API provided a mode, keep it; else keep Frontend constant 'light'
+      const hasMode =
+        payload &&
+        typeof payload.mode === "string" &&
+        payload.mode.trim().length > 0;
+      const finalMode: ThemeMode = hasMode
+        ? (payload.mode as ThemeMode)
+        : DEFAULT_THEME_MODE;
+
+      // If API provided a color, keep it; else keep Frontend constant blue color
+      let finalColor: ThemeColors;
+      if (
+        payload?.color &&
+        typeof payload.color.mainColor === "string" &&
+        payload.color.mainColor.trim().length > 0
+      ) {
+        finalColor = resolveColorPalette(payload.color.mainColor, finalMode);
+      } else {
+        finalColor = resolveColorPalette("blue", finalMode);
+      }
+
+      state.mode = finalMode;
+      state.color = finalColor;
+      state.changed = false;
     },
     setTheme(state) {
       state.changed = false;
